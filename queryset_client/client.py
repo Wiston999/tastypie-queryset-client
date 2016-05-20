@@ -672,7 +672,8 @@ def model_gen(**configs):
                 self._client(self.id).put(self._get_fields())  # return bool
             else:
                 self._client.post(self._get_fields())
-                self._setattrs(**self._client._handle_redirect(self._client._))
+                # self._setattrs(**self._client._handle_redirect(self._client._))
+                self._setattrs(**self._client(url_override = urlparse.urljoin(self._base_url, self._client._.headers['Location'])).get())
 
         def delete(self):
             """ delete
